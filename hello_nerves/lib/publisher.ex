@@ -42,7 +42,7 @@ defmodule Publisher do
 
   defp publish(state) do
     result =
-      Req.post(state.aht20_tracker_url, state.measurements)
+      Req.post(state.aht20_tracker_url, json: state.measurements)
 
     Logger.debug("Server response: #{inspect(result)}")
     schedule_next_publish(state.interval)
