@@ -70,7 +70,8 @@ defmodule HelloNerves.MixProject do
       {:nerves_system_x86_64, "~> 1.24", runtime: false, targets: :x86_64},
       {:nerves_system_grisp2, "~> 0.8", runtime: false, targets: :grisp2},
       {:nerves_system_mangopi_mq_pro, "~> 0.6", runtime: false, targets: :mangopi_mq_pro},
-      {:circuits_i2c, "~> 2.0"}
+      {:circuits_i2c, "~> 2.0"},
+      {:req, "~> 0.4.5"}
     ]
   end
 
