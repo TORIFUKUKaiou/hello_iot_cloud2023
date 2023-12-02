@@ -96,3 +96,5 @@ config :mdns_lite,
 # Uncomment to use target specific configurations
 
 # import_config "#{Mix.target()}.exs"
+
+config :hello_nerves, :aht20_tracker_url, "http://<SERVER_IP_ADDRESS>:4000/api/aht20-conditions"
