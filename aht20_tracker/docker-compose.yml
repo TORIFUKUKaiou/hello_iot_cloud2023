@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    image: torifukukaiou/aht20_tracker
+    environment:
+      PHX_SERVER: 1
+      DATABASE_URL: ecto://postgres:postgres@db/aht20_tracker
+      SECRET_KEY_BASE: 4A4AhJyMJ0TBNEG2d/j6bABBHfeqP3bl5CbSd/th8bs/M5Asm2CqgiSCi5BQbJ0S
+    ports:
+      - 4000:4000
+  db:
+    image: timescale/timescaledb:2.13.0-pg15
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: aht20_tracker
+    ports:
+      - 5432:5432
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+volumes:
+  dbdata:

@@ -16,3 +16,22 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+## Docker Image Push
+
+```bash
+docker login
+docker build -t torifukukaiou/aht20_tracker .
+docker push torifukukaiou/aht20_tracker
+```
+
+## Usage
+
+```bash
+docker compose up
+docker compose run web bin/migrate
+```
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{"temperature":"21.3", "humidity":"45.3"}' localhost:4000/api/aht20-conditions
+```
