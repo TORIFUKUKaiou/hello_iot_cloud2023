@@ -7,6 +7,7 @@ defmodule Aht20TrackerWeb.Router do
 
   scope "/api", Aht20TrackerWeb do
     pipe_through :api
+    post "/aht20-conditions", Aht20ConditionsController, :create
   end
 
   # Enable Swoosh mailbox preview in development
