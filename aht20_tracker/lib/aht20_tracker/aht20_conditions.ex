@@ -1,7 +1,7 @@
-defmodule Aht20Tracker.Aht20_Conditions do
+defmodule Aht20Tracker.Aht20Conditions do
   alias Aht20Tracker.{
     Repo,
-    Aht20_Conditions.Aht20Condition
+    Aht20Conditions.Aht20Condition
   }
 
   def create_entry(attrs) do
