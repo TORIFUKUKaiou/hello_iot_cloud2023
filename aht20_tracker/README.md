@@ -29,7 +29,7 @@ docker push torifukukaiou/aht20_tracker
 
 ```bash
 docker compose up
-docker compose run web bin/migrate
+docker compose exec web bin/migrate
 ```
 
 ```
