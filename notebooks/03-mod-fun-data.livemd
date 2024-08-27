@@ -1,0 +1,101 @@
+# 03 関数型言語 Elixir の基礎(関数,モジュール,データ変換を直感的に記述できるパイプ演算子)を学ぶ
+
+```elixir
+Mix.install([
+  {:req, "~> 0.4"}
+])
+```
+
+## はじめに
+
+* Elixir の基礎を学びます
+  * 関数
+  * モジュール
+  * パイプ演算子
+* いずれも Elixir のプログラミングには欠かせない基礎事項であり、関数は Elixir の中心にある概念です(関数で解決をします)
+
+## 関数
+
+![image](https://github.com/user-attachments/assets/b3885007-133e-463a-bd00-2be34c7e6504)
+
+```elixir
+f =
+  fn a, b, c ->
+    a + b + c
+  end
+```
+
+```elixir
+f.(1, 2, 3)
+```
+
+## モジュール
+
+![image](https://github.com/user-attachments/assets/846222c2-a356-4de7-971c-f0819bc02191)
+
+* 関数をグループ化する機構をモジュールと呼びます。
+* モジュールの中には複数の関数を定義でき、名前付き関数 と呼ばれます。
+* 前回の演習でてきた`Enum`等は標準で用意されているモジュールです。モジュール内の関数は`def`または
+  `defp`(プライベート)で定義します。
+* `@pi`はモジュールアトリビュートと呼ばれ、定数を定義します。
+
+```elixir
+defmodule Awesome do
+  @pi 3.14
+
+  def calc_area(r) do
+    @pi * r * r
+  end
+end
+```
+
+```elixir
+Awesome.calc_area(2)
+```
+
+## 関数のアリティと関数表記
+
+* 関数の引数の数をアリティと呼びます。
+* さきほどでてきた`Awesome.calc_area`は 1 つの引数をとります。
+* このとき、`Awesome.calc_area/1` と表記します。
+* `Enum.map([1, 2, 3], fn x -> x * x end)`の場合は、2 つの引数(リスト`[1,2,3]`と無名関数
+  `fn x -> x * x end`)があるので`Enum.map/2` と表記されます。
+
+## パイプ演算子
+
+`|>` はパイプ演算子と呼ばれ、前の結果を次の関数の第一引数に入れて実行をしてくれ
+ます。
+
+```elixir
+"https://qiita.com/api/v2/items?query=tag:Elixir&per_page=10"
+|> Req.get!(pool_timeout: 50000, receive_timeout: 50000)
+|> Map.get(:body)
+|> Enum.map(fn post -> Map.take(post, ["title", "url"]) end)
+|> dbg()
+```
+
+上記は Qiita API をコール(リクエスト)し、レスポンスからボディを取り出し、各記事
+情報からタイトルと URL を取り出したリストを作ります。
+
+※ `Map.take/2` はマップから指定された複数キーのマップを作る関数です
+
+もしパイプ演算子がない場合に一文で書こうとすると
+
+```elixir
+dbg(
+  Enum.map(
+    Map.get(
+      Req.get!("https://qiita.com/api/v2/items?query=tag:Elixir&per_page=10",
+        pool_timeout: 50000,
+        receive_timeout: 50000
+      ),
+      :body
+    ),
+    fn post -> Map.take(post, ["title", "url"]) end
+  )
+)
+```
+
+最初にどこが実行されるかかがわかりにくくなります。
+
+パイプ演算子を使うことにより、中間を変数をつかわなくても処理の流れがわかりやすい記述が可能となります。
