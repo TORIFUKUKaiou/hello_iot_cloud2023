@@ -7,7 +7,7 @@ defmodule Aht20TrackerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_aht20_tracker_key",
-    signing_salt: "YlKLSE+z",
+    signing_salt: "oPLjr383",
     same_site: "Lax"
   ]
 
@@ -19,31 +19,29 @@ defmodule Aht20TrackerWeb.Endpoint do
   #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
-  plug(Plug.Static,
+  plug Plug.Static,
     at: "/",
     from: :aht20_tracker,
     gzip: false,
     only: Aht20TrackerWeb.static_paths()
-  )
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    plug(Phoenix.CodeReloader)
-    plug(Phoenix.Ecto.CheckRepoStatus, otp_app: :aht20_tracker)
+    plug Phoenix.CodeReloader
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :aht20_tracker
   end
 
-  plug(Plug.RequestId)
-  plug(Plug.Telemetry, event_prefix: [:phoenix, :endpoint])
+  plug Plug.RequestId
+  plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
-  plug(Plug.Parsers,
+  plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
-  )
 
-  plug(Plug.MethodOverride)
-  plug(Plug.Head)
-  plug(Plug.Session, @session_options)
-  plug(Aht20TrackerWeb.Router)
+  plug Plug.MethodOverride
+  plug Plug.Head
+  plug Plug.Session, @session_options
+  plug Aht20TrackerWeb.Router
 end
