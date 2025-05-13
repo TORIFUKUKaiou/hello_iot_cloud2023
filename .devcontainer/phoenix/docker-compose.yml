@@ -19,8 +19,8 @@ services:
 
     volumes:
       - ../../:/workspace:cached
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db
+    networks:
+      - phoenix-network
 
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
@@ -34,6 +34,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: app
+    networks:
+      - phoenix-network
+
+networks:
+  phoenix-network:
+    driver: bridge
 
 volumes:
   postgres-data:
