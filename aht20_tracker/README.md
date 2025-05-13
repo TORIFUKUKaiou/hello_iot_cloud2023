@@ -17,12 +17,22 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
 
+## Docker Local Usage
+
+```bash
+docker compose -f docker-compose-local.yml build
+docker compose -f docker-compose-local.yml up -d
+docker compose -f docker-compose-local.yml exec web bin/migrate
+```
+
 ## Docker Image Push
 
 ```bash
 docker login
-docker build -t torifukukaiou/aht20_tracker .
-docker push torifukukaiou/aht20_tracker
+docker buildx build --no-cache --push \
+  --platform linux/amd64,linux/arm64 \
+  -t torifukukaiou/aht20_tracker:latest \
+  .
 ```
 
 ## Usage
