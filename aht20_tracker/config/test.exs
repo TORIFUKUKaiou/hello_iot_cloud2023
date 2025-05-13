@@ -11,19 +11,19 @@ config :aht20_tracker, Aht20Tracker.Repo,
   hostname: "localhost",
   database: "aht20_tracker_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
-  pool_size: 10
+  pool_size: System.schedulers_online() * 2
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
 config :aht20_tracker, Aht20TrackerWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "W+Avka0NSnht6bDuzEF54x89la3LMr8KCdL8K/67JzauIr7lHZayvuRuCawrkCST",
+  secret_key_base: "8LNog+5ncfPNmgNR63cM2FBnd6MPHZTsPGw/FakIhTF/aJhTeOxkaEiVnB6uRJ2v",
   server: false
 
-# In test we don't send emails.
+# In test we don't send emails
 config :aht20_tracker, Aht20Tracker.Mailer, adapter: Swoosh.Adapters.Test
 
-# Disable swoosh api client as it is only required for production adapters.
+# Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
 
 # Print only warnings and errors during test

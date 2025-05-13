@@ -20,7 +20,7 @@ config :aht20_tracker, Aht20TrackerWeb.Endpoint,
     layout: false
   ],
   pubsub_server: Aht20Tracker.PubSub,
-  live_view: [signing_salt: "hY1FG2wH"]
+  live_view: [signing_salt: "Kv8snHj0"]
 
 # Configures the mailer
 #

@@ -17,13 +17,14 @@ config :aht20_tracker, Aht20Tracker.Repo,
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
 config :aht20_tracker, Aht20TrackerWeb.Endpoint,
-  # Binding to loopback ipv4 address prevents access from other machines.
-  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 4000],
+  # Bind to 0.0.0.0 to expose the server to the docker host machine.
+  # This makes make the service accessible from any network interface.
+  # Change to `ip: {127, 0, 0, 1}` to allow access only from the server machine.
+  http: [ip: {0, 0, 0, 0}, port: 4000],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "mDOOI8fF92C+N32GTPqydOnljTprESvlJy9GiynMLP4eJP4uKwry6PTyMcpJpKp6",
+  secret_key_base: "vHqBsJ+r/B2l1q6WwuOSQw84zLQ2gNHiqke3JJ4V6zuVuWmXMkcM1pxGC3Tcndcm",
   watchers: []
 
 # ## SSL Support

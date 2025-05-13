@@ -7,11 +7,13 @@ defmodule Aht20TrackerWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_aht20_tracker_key",
-    signing_salt: "YlKLSE+z",
+    signing_salt: "oPLjr383",
     same_site: "Lax"
   ]
 
-  # socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  # socket "/live", Phoenix.LiveView.Socket,
+  #   websocket: [connect_info: [session: @session_options]],
+  #   longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #

@@ -10,7 +10,7 @@ services:
     ports:
       - 4000:4000
   db:
-    image: timescale/timescaledb:2.13.0-pg15
+    image: timescale/timescaledb:2.19.3-pg17-oss
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: aht20_tracker
@@ -19,7 +19,7 @@ services:
     volumes:
       - dbdata:/var/lib/postgresql/data
   grafana:
-    image: grafana/grafana:10.2.2
+    image: grafana/grafana:12.0.0
     depends_on:
       - db
     ports:
