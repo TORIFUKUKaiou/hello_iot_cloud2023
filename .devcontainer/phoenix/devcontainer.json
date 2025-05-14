@@ -16,7 +16,6 @@
 				"elixirLS.dialyzerEnabled": true,
 				"elixirLS.signatureAfterComplete": false,
 				"elixirLS.fetchDeps": false,
-				"elixirLS.projectDir": "aht20_tracker",
 
 				"files.associations": {
 				  "*.heex": "phoenix-heex"
