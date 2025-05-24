@@ -27,12 +27,12 @@ docker compose -f docker-compose-local.yml exec web bin/migrate
 
 ## Docker Image Push
 
+### Windows(WSL 2 Ubuntu)などで
+
 ```bash
 docker login
-docker buildx build --no-cache --push \
-  --platform linux/amd64,linux/arm64 \
-  -t torifukukaiou/aht20_tracker:latest \
-  .
+docker build -t torifukukaiou/aht20_tracker .
+docker push torifukukaiou/aht20_tracker
 ```
 
 ## Usage
