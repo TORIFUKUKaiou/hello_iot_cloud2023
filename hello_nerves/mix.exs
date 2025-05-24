@@ -22,7 +22,7 @@ defmodule HelloNerves.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.13",
+      elixir: "~> 1.18",
       archives: [nerves_bootstrap: "~> 1.13"],
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -34,8 +34,8 @@ defmodule HelloNerves.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {HelloNerves.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools],
+      mod: {HelloNerves.Application, []}
     ]
   end
 
@@ -45,15 +45,15 @@ defmodule HelloNerves.MixProject do
       # Dependencies for all targets
       {:nerves, "~> 1.10", runtime: false},
       {:shoehorn, "~> 0.9.1"},
-      {:ring_logger, "~> 0.10.0"},
-      {:toolshed, "~> 0.3.0"},
+      {:ring_logger, "~> 0.11.0"},
+      {:toolshed, "~> 0.4.0"},
 
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.
       {:nerves_runtime, "~> 0.13.0"},
 
       # Dependencies for all targets except :host
-      {:nerves_pack, "~> 0.7.0", targets: @all_targets},
+      {:nerves_pack, "~> 0.7.1", targets: @all_targets},
 
       # Dependencies for specific targets
       # NOTE: It's generally low risk and recommended to follow minor version

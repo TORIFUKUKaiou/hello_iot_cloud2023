@@ -12,7 +12,7 @@ a short name like `rpi3` that maps to a Nerves system image for that platform.
 All of this logic is in the generated `mix.exs` and may be customized. For more
 information about targets see:
 
-https://hexdocs.pm/nerves/targets.html#content
+https://hexdocs.pm/nerves/supported-targets.html
 
 ## Getting Started
 
@@ -28,5 +28,6 @@ To start your Nerves app:
   * Official docs: https://hexdocs.pm/nerves/getting-started.html
   * Official website: https://nerves-project.org/
   * Forum: https://elixirforum.com/c/nerves-forum
-  * Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
+  * Elixir Slack #nerves channel: https://elixir-slack.community/
+  * Elixir Discord #nerves channel: https://discord.gg/elixir
   * Source: https://github.com/nerves-project/nerves
