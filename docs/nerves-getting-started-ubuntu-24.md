@@ -14,33 +14,33 @@ sudo apt install build-essential autoconf m4 libncurses5-dev libwxgtk3.2-dev lib
 sudo apt install build-essential automake autoconf git squashfs-tools ssh-askpass pkg-config curl libmnl-dev
 ```
 
-## fwup のインストール
+## asdf のインストール
+
+Nerves では、開発ホストで実行されている Erlang バージョンが組み込みターゲット（Raspberry Pi 4 等）の Erlang バージョンと互換性があることが求められます。そのため、十分な粒度でバージョンを管理できるよう asdf を使用して Erlang と Elixir のインストールすることをお勧めします。
 
 ```bash
 cd
-curl -fLO https://github.com/fhunleth/fwup/releases/download/v1.10.2/fwup_1.10.2_amd64.deb
-sudo dpkg -i fwup_1.10.2_amd64.deb
+sudo apt install wget tar
+wget https://github.com/asdf-vm/asdf/releases/download/v0.17.0/asdf-v0.17.0-linux-amd64.tar.gz
+mkdir -p ~/bin
+tar -xzvf asdf-v0.17.0-linux-amd64.tar.gz -C ~/bin/
+echo 'export PATH=~/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
 ```
 
-## ASDF のインストール
+`asdf-v0.17.0-linux-amd64.tar.gz`は、`asdf-v0.17.0-linux-386.tar.gz`もしくは`asdf-v0.17.0-linux-arm64.tar.gz`で読み替える必要があるかもしれません。
 
-Nerves では、開発ホストで実行されている Erlang バージョンが組み込みターゲット（Raspberry Pi 4 等）の Erlang バージョンと互換性があることが求められます。そのため、十分な粒度でバージョンを管理できるよう ASDF を使用して Erlang と Elixir のインストールすることをお勧めします。
-
-```bash
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
-```
-
-`asdf.sh`スクリプトを`~/.bashrc`に追加します。詳細は[公式ドキュメント](https://asdf-vm.com/ja-jp/guide/getting-started.html)をご参照ください。
+asdfの設定を`~/.bashrc`に追加します。詳細は[公式ドキュメント](https://asdf-vm.com/ja-jp/guide/getting-started.html)をご参照ください。Ubuntu 24.04では以下の手順を実行します。
 
 ```bash
-echo '. $HOME/.asdf/asdf.sh' >> ~/.bashrc
-echo '. $HOME/.asdf/completions/asdf.bash' >> ~/.bashrc
+echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.bashrc
+echo '. <(asdf completion bash)' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 ## Erlang と Elixir のインストール
 
-既に apt を使用して Erlang と Elixir をインストールしている場合は、今から ASDF を用いてインストールするバージョンとの衝突を避けるために、それらを事前にアンインストールしておくことをお勧めします。
+既に apt を使用して Erlang と Elixir をインストールしている場合は、今から asdf を用いてインストールするバージョンとの衝突を避けるために、それらを事前にアンインストールしておくことをお勧めします。
 
 ```bash
 sudo apt remove elixir
@@ -50,14 +50,21 @@ sudo apt remove erlang erlang-dev
 Erlang と Elixir をインストールします。
 
 ```bash
-asdf plugin-add erlang
-asdf plugin-add elixir
+asdf plugin add erlang
+asdf plugin add elixir
 
-asdf install erlang 27.0.1
-asdf install elixir 1.17.2-otp-27
+asdf install erlang 27.3.3
+asdf install elixir 1.18.3-otp-27
+asdf set -u erlang 27.3.3
+asdf set -u elixir 1.18.3-otp-27
+```
 
-asdf global erlang 27.0.1
-asdf global elixir 1.17.2-otp-27
+## fwup のインストール
+
+```bash
+cd
+curl -fLO https://github.com/fhunleth/fwup/releases/download/v1.12.0/fwup_1.12.0_amd64.deb
+sudo dpkg -i fwup_1.12.0_amd64.deb
 ```
 
 ## Nerves 開発ツールのインストール
