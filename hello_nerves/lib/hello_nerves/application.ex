@@ -13,28 +13,32 @@ defmodule HelloNerves.Application do
         # Starts a worker by calling: HelloNerves.Worker.start_link(arg)
         # {HelloNerves.Worker, arg},
         {Publisher, %{aht20_tracker_url: Application.get_env(:hello_nerves, :aht20_tracker_url)}}
-      ] ++ children(Nerves.Runtime.mix_target())
+      ] ++ target_children()
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: <%= app_module %>.Supervisor]
+    opts = [strategy: :one_for_one, name: HelloNerves.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # List all child processes to be supervised
-  defp children(:host) do
-    [
-      # Children that only run on the host
-      # Starts a worker by calling: HelloNerves.Worker.start_link(arg)
-      # {HelloNerves.Worker, arg},
-    ]
-  end
-
-  defp children(_target) do
-    [
-      # Children for all targets except host
-      # Starts a worker by calling: HelloNerves.Worker.start_link(arg)
-      # {HelloNerves.Worker, arg},
-    ]
+  if Mix.target() == :host do
+    defp target_children() do
+      [
+        # Children that only run on the host during development or test.
+        # In general, prefer using `config/host.exs` for differences.
+        #
+        # Starts a worker by calling: Host.Worker.start_link(arg)
+        # {Host.Worker, arg},
+      ]
+    end
+  else
+    defp target_children() do
+      [
+        # Children for all targets except host
+        # Starts a worker by calling: Target.Worker.start_link(arg)
+        # {Target.Worker, arg},
+      ]
+    end
   end
 end
