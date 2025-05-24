@@ -59,14 +59,6 @@ asdf set -u erlang 27.3.3
 asdf set -u elixir 1.18.3-otp-27
 ```
 
-## fwup のインストール
-
-```bash
-cd
-curl -fLO https://github.com/fhunleth/fwup/releases/download/v1.12.0/fwup_1.12.0_amd64.deb
-sudo dpkg -i fwup_1.12.0_amd64.deb
-```
-
 ## Nerves 開発ツールのインストール
 
 nerves_bootstrap は、組み込みターゲットに適したクロスコンパイラを使用してコードが適切にコンパイルできる開発環境や新規 Nerves プロジェクト ジェネレーター（`mix nerves.new`コマンド） 提供します。
@@ -76,6 +68,14 @@ mix local.hex
 mix local.rebar
 
 mix archive.install hex nerves_bootstrap
+```
+
+## fwup のインストール
+
+```bash
+cd
+curl -fLO https://github.com/fhunleth/fwup/releases/download/v1.12.0/fwup_1.12.0_amd64.deb
+sudo dpkg -i fwup_1.12.0_amd64.deb
 ```
 
 ## Nerves ファームウエアの開発
