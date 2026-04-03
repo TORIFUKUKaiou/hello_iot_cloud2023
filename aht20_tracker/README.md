@@ -106,3 +106,7 @@ Phoenixのバージョンアップによりどういう影響がでるのかは�
 ```
 
 その他、細かな `key` (ランダム値) の変更は新しく生成された値の採用でもよいはず。もちろん、元にもどしてもよい。
+
+### 7. Grafana と timescaledb をアップグレード (オプション)
+
+`docker-compose.yml` と `docker-compose-local.yml` で使っているDocker Imageを更新する。
