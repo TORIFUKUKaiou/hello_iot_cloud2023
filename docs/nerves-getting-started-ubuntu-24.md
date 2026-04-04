@@ -16,12 +16,9 @@ sudo apt install build-essential automake autoconf git squashfs-tools ssh-askpas
 Nerves では、開発ホストで実行されている Erlang バージョンが組み込みターゲット（Raspberry Pi 4 等）の Erlang バージョンと互換性があることが求められます。そのため、十分な粒度でバージョンを管理できるよう mise を使用して Erlang と Elixir のインストールすることをお勧めします。
 
 ```bash
-sudo apt update -y && sudo apt install -y curl
-sudo install -dm 755 /etc/apt/keyrings
-curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.asc 1> /dev/null
-echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.asc] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
-sudo apt update -y
-sudo apt install -y mise
+curl https://mise.run | sh
+
+~/.local/bin/mise --version
 ```
 
 
