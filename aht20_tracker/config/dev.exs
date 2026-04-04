@@ -17,10 +17,9 @@ config :aht20_tracker, Aht20Tracker.Repo,
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
 config :aht20_tracker, Aht20TrackerWeb.Endpoint,
-  # Bind to 0.0.0.0 to expose the server to the docker host machine.
-  # This makes make the service accessible from any network interface.
-  # Change to `ip: {127, 0, 0, 1}` to allow access only from the server machine.
-  http: [ip: {0, 0, 0, 0}, port: 4000],
+  # Binding to loopback ipv4 address prevents access from other machines.
+  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
+  http: [ip: {127, 0, 0, 1}],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
@@ -54,7 +53,7 @@ config :aht20_tracker, Aht20TrackerWeb.Endpoint,
 config :aht20_tracker, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
-config :logger, :console, format: "[$level] $message\n"
+config :logger, :default_formatter, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

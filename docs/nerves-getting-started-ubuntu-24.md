@@ -7,34 +7,25 @@ Nerves には、システム上にいくつかのプログラムが必要です�
 ```bash
 sudo apt update
 
-# Erlang関連: see https://github.com/asdf-vm/asdf-erlang
-sudo apt install build-essential autoconf m4 libncurses5-dev libwxgtk3.2-dev libwxgtk-webview3.2-dev libgl1-mesa-dev libglu1-mesa-dev libpng-dev libssh-dev unixodbc-dev xsltproc fop libxml2-utils libncurses-dev openjdk-11-jdk
-
 # Nerves関連: see https://hexdocs.pm/nerves/installation.html
 sudo apt install build-essential automake autoconf git squashfs-tools ssh-askpass pkg-config curl libmnl-dev
 ```
 
-## asdf のインストール
+## mise のインストール
 
-Nerves では、開発ホストで実行されている Erlang バージョンが組み込みターゲット（Raspberry Pi 4 等）の Erlang バージョンと互換性があることが求められます。そのため、十分な粒度でバージョンを管理できるよう asdf を使用して Erlang と Elixir のインストールすることをお勧めします。
+Nerves では、開発ホストで実行されている Erlang バージョンが組み込みターゲット（Raspberry Pi 4 等）の Erlang バージョンと互換性があることが求められます。そのため、十分な粒度でバージョンを管理できるよう mise を使用して Erlang と Elixir のインストールすることをお勧めします。
 
 ```bash
-cd
-sudo apt install wget tar
-wget https://github.com/asdf-vm/asdf/releases/download/v0.17.0/asdf-v0.17.0-linux-amd64.tar.gz
-mkdir -p ~/bin
-tar -xzvf asdf-v0.17.0-linux-amd64.tar.gz -C ~/bin/
-echo 'export PATH=~/bin:$PATH' >> ~/.bashrc
-source ~/.bashrc
+curl https://mise.run | sh
+
+~/.local/bin/mise --version
 ```
 
-`asdf-v0.17.0-linux-amd64.tar.gz`は、`asdf-v0.17.0-linux-386.tar.gz`もしくは`asdf-v0.17.0-linux-arm64.tar.gz`で読み替える必要があるかもしれません。
 
-asdfの設定を`~/.bashrc`に追加します。詳細は[公式ドキュメント](https://asdf-vm.com/ja-jp/guide/getting-started.html)をご参照ください。Ubuntu 24.04では以下の手順を実行します。
+miseの設定を`~/.bashrc`に追加します。詳細は[公式ドキュメント](https://mise.jdx.dev/getting-started.html)をご参照ください。Ubuntu 24.04では以下の手順を実行します。bash以外をお使いの方は公式ドキュメントをご参照ください。
 
 ```bash
-echo 'export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"' >> ~/.bashrc
-echo '. <(asdf completion bash)' >> ~/.bashrc
+echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -50,13 +41,8 @@ sudo apt remove erlang erlang-dev
 Erlang と Elixir をインストールします。
 
 ```bash
-asdf plugin add erlang
-asdf plugin add elixir
-
-asdf install erlang 27.3.3
-asdf install elixir 1.18.3-otp-27
-asdf set -u erlang 27.3.3
-asdf set -u elixir 1.18.3-otp-27
+mise use -g erlang@28.1.1
+mise use -g elixir@1.19.1-otp-28
 ```
 
 ## Nerves 開発ツールのインストール
@@ -74,8 +60,8 @@ mix archive.install hex nerves_bootstrap
 
 ```bash
 cd
-curl -fLO https://github.com/fhunleth/fwup/releases/download/v1.12.0/fwup_1.12.0_amd64.deb
-sudo dpkg -i fwup_1.12.0_amd64.deb
+curl -fLO https://github.com/fwup-home/fwup/releases/download/v1.15.0/fwup_1.15.0_amd64.deb
+sudo dpkg -i fwup_1.15.0_amd64.deb
 ```
 
 ## Nerves ファームウエアの開発

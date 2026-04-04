@@ -12,8 +12,6 @@ defmodule Aht20Tracker.Application do
       Aht20Tracker.Repo,
       {DNSCluster, query: Application.get_env(:aht20_tracker, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Aht20Tracker.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: Aht20Tracker.Finch},
       # Start a worker by calling: Aht20Tracker.Worker.start_link(arg)
       # {Aht20Tracker.Worker, arg},
       # Start to serve requests, typically the last entry

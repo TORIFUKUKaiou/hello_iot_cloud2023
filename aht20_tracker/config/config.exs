@@ -11,7 +11,7 @@ config :aht20_tracker,
   ecto_repos: [Aht20Tracker.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
 
-# Configures the endpoint
+# Configure the endpoint
 config :aht20_tracker, Aht20TrackerWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
@@ -22,7 +22,7 @@ config :aht20_tracker, Aht20TrackerWeb.Endpoint,
   pubsub_server: Aht20Tracker.PubSub,
   live_view: [signing_salt: "Kv8snHj0"]
 
-# Configures the mailer
+# Configure the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
 # locally. You can see the emails in your browser, at "/dev/mailbox".
@@ -31,8 +31,8 @@ config :aht20_tracker, Aht20TrackerWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :aht20_tracker, Aht20Tracker.Mailer, adapter: Swoosh.Adapters.Local
 
-# Configures Elixir's Logger
-config :logger, :console,
+# Configure Elixir's Logger
+config :logger, :default_formatter,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 

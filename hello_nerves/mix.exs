@@ -3,31 +3,18 @@ defmodule HelloNerves.MixProject do
 
   @app :hello_nerves
   @version "0.1.0"
-  @all_targets [
-    :rpi,
-    :rpi0,
-    :rpi2,
-    :rpi3,
-    :rpi3a,
-    :rpi4,
-    :rpi5,
-    :bbb,
-    :osd32mp1,
-    :x86_64,
-    :grisp2,
-    :mangopi_mq_pro
-  ]
+  @all_targets [:bbb, :grisp2, :osd32mp1, :mangopi_mq_pro, :qemu_aarch64, :rpi, :rpi0, :rpi0_2, :rpi2, :rpi3, :rpi4, :rpi5, :x86_64]
 
   def project do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.18",
-      archives: [nerves_bootstrap: "~> 1.13"],
+      elixir: "~> 1.19",
+      archives: [nerves_bootstrap: "~> 1.15"],
+      listeners: listeners(Mix.target(), Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      releases: [{@app, release()}],
-      preferred_cli_target: [run: :host, test: :host]
+      releases: [{@app, release()}]
     ]
   end
 
@@ -39,18 +26,22 @@ defmodule HelloNerves.MixProject do
     ]
   end
 
+  def cli do
+    [preferred_targets: [run: :host, test: :host]]
+  end
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       # Dependencies for all targets
-      {:nerves, "~> 1.10", runtime: false},
+      {:nerves, "~> 1.13", runtime: false},
       {:shoehorn, "~> 0.9.1"},
       {:ring_logger, "~> 0.11.0"},
       {:toolshed, "~> 0.4.0"},
 
       # Allow Nerves.Runtime on host to support development, testing and CI.
       # See config/host.exs for usage.
-      {:nerves_runtime, "~> 0.13.0"},
+      {:nerves_runtime, "~> 0.13.12"},
 
       # Dependencies for all targets except :host
       {:nerves_pack, "~> 0.7.1", targets: @all_targets},
@@ -60,20 +51,21 @@ defmodule HelloNerves.MixProject do
       # bumps to Nerves systems. Since these include Linux kernel and Erlang
       # version updates, please review their release notes in case
       # changes to your application are needed.
-      {:nerves_system_rpi, "~> 1.24", runtime: false, targets: :rpi},
-      {:nerves_system_rpi0, "~> 1.24", runtime: false, targets: :rpi0},
-      {:nerves_system_rpi2, "~> 1.24", runtime: false, targets: :rpi2},
-      {:nerves_system_rpi3, "~> 1.24", runtime: false, targets: :rpi3},
-      {:nerves_system_rpi3a, "~> 1.24", runtime: false, targets: :rpi3a},
-      {:nerves_system_rpi4, "~> 1.24", runtime: false, targets: :rpi4},
-      {:nerves_system_rpi5, "~> 0.2", runtime: false, targets: :rpi5},
       {:nerves_system_bbb, "~> 2.19", runtime: false, targets: :bbb},
-      {:nerves_system_osd32mp1, "~> 0.15", runtime: false, targets: :osd32mp1},
-      {:nerves_system_x86_64, "~> 1.24", runtime: false, targets: :x86_64},
       {:nerves_system_grisp2, "~> 0.8", runtime: false, targets: :grisp2},
+      {:nerves_system_osd32mp1, "~> 0.15", runtime: false, targets: :osd32mp1},
       {:nerves_system_mangopi_mq_pro, "~> 0.6", runtime: false, targets: :mangopi_mq_pro},
-      {:circuits_i2c, "~> 2.0"},
-      {:req, "~> 0.5.0"}
+      {:nerves_system_qemu_aarch64, "~> 0.1", runtime: false, targets: :qemu_aarch64},
+      {:nerves_system_rpi, "~> 2.0", runtime: false, targets: :rpi},
+      {:nerves_system_rpi0, "~> 2.0", runtime: false, targets: :rpi0},
+      {:nerves_system_rpi0_2, "~> 2.0", runtime: false, targets: :rpi0_2},
+      {:nerves_system_rpi2, "~> 2.0", runtime: false, targets: :rpi2},
+      {:nerves_system_rpi3, "~> 2.0", runtime: false, targets: :rpi3},
+      {:nerves_system_rpi4, "~> 2.0", runtime: false, targets: :rpi4},
+      {:nerves_system_rpi5, "~> 2.0", runtime: false, targets: :rpi5},
+      {:nerves_system_x86_64, "~> 1.24", runtime: false, targets: :x86_64},
+      {:circuits_i2c, "~> 2.1"},
+      {:req, "~> 0.5.17"}
     ]
   end
 
@@ -88,4 +80,8 @@ defmodule HelloNerves.MixProject do
       strip_beams: Mix.env() == :prod or [keep: ["Docs"]]
     ]
   end
+
+  # Uncomment the following line if using Phoenix > 1.8.
+  # defp listeners(:host, :dev), do: [Phoenix.CodeReloader]
+  defp listeners(_, _), do: []
 end
