@@ -8,6 +8,7 @@ config :aht20_tracker, Aht20TrackerWeb.Endpoint,
     rewrite_on: [:x_forwarded_proto],
     exclude: [
       # paths: ["/health"],
+      paths: ["/api/aht20-conditions"],
       hosts: ["localhost", "127.0.0.1"]
     ]
   ]
