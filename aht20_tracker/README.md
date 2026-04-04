@@ -96,13 +96,25 @@ mix phx.gen.release --docker
 Phoenixのバージョンアップによりどういう影響がでるのかはわからない。
 言えることは、必要に応じてとしか言えない。
 
-特に取り込みが必要なのは、 `aht20_tracker/lib/aht20_tracker_web/router.ex`
+特に取り込みが必要なのは、 いくつかのファイルがある。
 
-```
+```elixir:aht20_tracker/lib/aht20_tracker_web/router.ex
   scope "/api", Aht20TrackerWeb do
     pipe_through :api
     post "/aht20-conditions", Aht20ConditionsController, :create
   end
+```
+
+```elixir:aht20_tracker/config/prod.exs
+config :aht20_tracker, Aht20TrackerWeb.Endpoint,
+  force_ssl: [
+    rewrite_on: [:x_forwarded_proto],
+    exclude: [
+      # paths: ["/health"],
+      paths: ["/api/aht20-conditions"],
+      hosts: ["localhost", "127.0.0.1"]
+    ]
+  ]
 ```
 
 その他、細かな `key` (ランダム値) の変更は新しく生成された値の採用でもよいはず。もちろん、元にもどしてもよい。
